@@ -3,49 +3,32 @@ package main
 import (
 	"database/sql"
 
-	"github.com/riser-platform/riser-server/pkg/environment"
-
-	"github.com/riser-platform/riser-server/pkg/namespace"
-	"github.com/riser-platform/riser-server/pkg/util"
-
-	"github.com/riser-platform/riser-server/api"
-
-	"github.com/riser-platform/riser-server/pkg/login"
-
-	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/riser-platform/riser-server/pkg/postgres"
-
-	"os"
-
-	apiv1 "github.com/riser-platform/riser-server/api/v1"
-
-	"github.com/joho/godotenv"
-
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/kelseyhightower/envconfig"
-
 	"github.com/labstack/echo/v4"
 	echolog "github.com/onrik/logrus/echo"
 	"github.com/sirupsen/logrus"
+
+	"github.com/riser-platform/riser-server/api"
+	apiv1 "github.com/riser-platform/riser-server/api/v1"
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/environment"
+	"github.com/riser-platform/riser-server/pkg/login"
+	"github.com/riser-platform/riser-server/pkg/namespace"
+	"github.com/riser-platform/riser-server/pkg/postgres"
+	"github.com/riser-platform/riser-server/pkg/util"
 )
 
 // All env vars are prefixed with RISER_
 const envPrefix = "RISER"
-
-// DotEnv file typically used For local development
-const dotEnvFile = ".env"
 
 var logger = logrus.StandardLogger()
 
 func main() {
 	logger.SetFormatter(&logrus.JSONFormatter{})
 
-	err := loadDotEnv()
-	exitIfError(err, "Error loading .env file")
-
 	var rc core.RuntimeConfig
-	err = envconfig.Process(envPrefix, &rc)
-	exitIfError(err, "Error loading environment variables")
+	exitIfError(envconfig.Process(envPrefix, &rc), "Error loading environment variables")
 
 	if rc.DeveloperMode {
 		logger.SetFormatter(&logrus.TextFormatter{})
@@ -53,7 +36,6 @@ func main() {
 	}
 
 	logger.Infof("Server version %s", util.VersionString)
-
 	logger.Info("Initializing postgres")
 	postgresConn, err := postgres.AddAuthToConnString(rc.PostgresUrl, rc.PostgresUsername, rc.PostgresPassword)
 	exitIfError(err, "Error creating postgres connection url")
@@ -105,15 +87,6 @@ func bootstrapApiKey(db *sql.DB, rc *core.RuntimeConfig) {
 			exitIfError(err, "Unable to bootstrap API KEY")
 		}
 	}
-}
-
-func loadDotEnv() error {
-	_, err := os.Stat(dotEnvFile)
-	if !os.IsNotExist(err) {
-		return godotenv.Load(dotEnvFile)
-	}
-
-	return nil
 }
 
 func exitIfError(err error, message string) {

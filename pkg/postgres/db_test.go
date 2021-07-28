@@ -17,6 +17,15 @@ func Test_AddAuthToConnString(t *testing.T) {
 	assert.Equal(t, "postgres://myuser:mypass@myhost.local/riserdb?arg=val", result)
 }
 
+func Test_AddAuthToConnString_with_existing_auth(t *testing.T) {
+	result, err := AddAuthToConnString(
+		"postgres://testuser:password@myhost.local/riserdb?arg=val",
+		"", "")
+
+	assert.NoError(t, err)
+	assert.Equal(t, "postgres://testuser:password@myhost.local/riserdb?arg=val", result)
+}
+
 func Test_AddAuthToConnString_BadUrl(t *testing.T) {
 	result, err := AddAuthToConnString(
 		"not@valid:test",

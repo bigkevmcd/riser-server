@@ -11,6 +11,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// Opens a database using the provided connection string.
 func NewDB(postgresConn string) (*sql.DB, error) {
 	var err error
 	db, err := sql.Open("postgres", postgresConn)
@@ -25,12 +26,18 @@ func NewDB(postgresConn string) (*sql.DB, error) {
 	return db, nil
 }
 
+// AddAuthToConnString adds authentication credentials to the provided data
+// source name.
+//
+// If the URL already has credentials then these are not replaced.
 func AddAuthToConnString(postgresConn string, username string, password string) (string, error) {
 	postgresUrl, err := url.Parse(postgresConn)
 	if err != nil {
-		return "", err
+		return "", errors.Wrapf(err, "failed to parse connection string")
 	}
-	postgresUrl.User = url.UserPassword(username, password)
+	if postgresUrl.User == nil {
+		postgresUrl.User = url.UserPassword(username, password)
+	}
 	return postgresUrl.String(), nil
 }
 
