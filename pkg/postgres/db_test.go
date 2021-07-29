@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_AddAuthToConnString(t *testing.T) {
+func TestAddAuthToConnString(t *testing.T) {
 	result, err := AddAuthToConnString(
 		"postgres://myhost.local/riserdb?arg=val",
 		"myuser",
@@ -17,7 +17,7 @@ func Test_AddAuthToConnString(t *testing.T) {
 	assert.Equal(t, "postgres://myuser:mypass@myhost.local/riserdb?arg=val", result)
 }
 
-func Test_AddAuthToConnString_with_existing_auth(t *testing.T) {
+func TestAddAuthToConnString_with_existing_auth(t *testing.T) {
 	result, err := AddAuthToConnString(
 		"postgres://testuser:password@myhost.local/riserdb?arg=val",
 		"", "")
@@ -26,7 +26,7 @@ func Test_AddAuthToConnString_with_existing_auth(t *testing.T) {
 	assert.Equal(t, "postgres://testuser:password@myhost.local/riserdb?arg=val", result)
 }
 
-func Test_AddAuthToConnString_BadUrl(t *testing.T) {
+func TestAddAuthToConnString_bad_url(t *testing.T) {
 	result, err := AddAuthToConnString(
 		"not@valid:test",
 		"myuser",

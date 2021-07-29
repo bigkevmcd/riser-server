@@ -11,7 +11,10 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Opens a database using the provided connection string.
+// NewDB a database using the provided connection string.
+//
+// The newly opened database is pinged to check that it is available and an
+// error is returned if this fails.
 func NewDB(postgresConn string) (*sql.DB, error) {
 	var err error
 	db, err := sql.Open("postgres", postgresConn)

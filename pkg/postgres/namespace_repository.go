@@ -6,12 +6,14 @@ import (
 	"github.com/riser-platform/riser-server/pkg/core"
 )
 
-type namespaceRepository struct {
-	db *sql.DB
-}
-
+// NewNamespaceRepository creates and returns a new repository for storing
+// namespaces.
 func NewNamespaceRepository(db *sql.DB) core.NamespaceRepository {
 	return &namespaceRepository{db: db}
+}
+
+type namespaceRepository struct {
+	db *sql.DB
 }
 
 func (r *namespaceRepository) Create(namespace *core.Namespace) error {
@@ -23,13 +25,9 @@ func (r *namespaceRepository) Get(namespaceName string) (*core.Namespace, error)
 	ns := &core.Namespace{}
 	// Effectively used just to make sure that the namespace exists. This will do in the future as we add more fields.
 	err := r.db.QueryRow("SELECT name FROM namespace WHERE name = $1", namespaceName).Scan(&ns.Name)
-	if err == sql.ErrNoRows {
-		return nil, core.ErrNotFound
-	}
 	if err != nil {
-		return nil, err
+		return nil, noRowsErrorHandler(err)
 	}
-
 	return ns, nil
 }
 

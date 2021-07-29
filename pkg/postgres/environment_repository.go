@@ -17,11 +17,8 @@ func NewEnvironmentRepository(db *sql.DB) core.EnvironmentRepository {
 func (r *environmentRepository) Get(name string) (*core.Environment, error) {
 	environment := &core.Environment{}
 	err := r.db.QueryRow("SELECT name, doc FROM environment WHERE name = $1", name).Scan(&environment.Name, &environment.Doc)
-	if err == sql.ErrNoRows {
-		return nil, core.ErrNotFound
-	}
 	if err != nil {
-		return nil, err
+		return nil, noRowsErrorHandler(err)
 	}
 
 	return environment, nil

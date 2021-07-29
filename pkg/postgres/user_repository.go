@@ -21,11 +21,9 @@ func (r *userRepository) GetByApiKey(keyHash []byte) (*core.User, error) {
 	FROM riser_user
 	INNER JOIN apikey ON (riser_user.id = apikey.riser_user_id)
 	WHERE apikey.key_hash = $1`, keyHash).Scan(&user.Id, &user.Username, &user.Doc)
-	if err == sql.ErrNoRows {
-		return nil, core.ErrNotFound
-	}
+
 	if err != nil {
-		return nil, err
+		return nil, noRowsErrorHandler(err)
 	}
 
 	return user, nil
@@ -37,11 +35,8 @@ func (r *userRepository) GetByUsername(username string) (*core.User, error) {
 	err := r.db.QueryRow(`SELECT id, username, doc
 	FROM riser_user
 	WHERE username = $1`, username).Scan(&user.Id, &user.Username, &user.Doc)
-	if err == sql.ErrNoRows {
-		return nil, core.ErrNotFound
-	}
 	if err != nil {
-		return nil, err
+		return nil, noRowsErrorHandler(err)
 	}
 
 	return user, nil
