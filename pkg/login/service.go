@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-
 	"github.com/pkg/errors"
 
 	"github.com/riser-platform/riser-server/pkg/core"
@@ -23,6 +22,8 @@ var ErrInvalidLogin = errors.New("Invalid login")
 // ErrNoBoostrapNoUsers is returned when no bootstrap is specified and no active users are provisioned in the DB
 var ErrNoBootstrapNoUsers = errors.New("You must specify RISER_BOOTSTRAP_APIKEY is required when there are no users. Use \"riser ops generate-apikey\" to generate the key.")
 
+// Service implementations handle logging in as users and creating the initial
+// management user.
 type Service interface {
 	LoginWithApiKey(apiKeyPlainText string) (*core.User, error)
 	BootstrapRootUser(apiKeyPlainText string) error
@@ -33,10 +34,14 @@ type service struct {
 	apikeys core.ApiKeyRepository
 }
 
+// NewService creates and returns a service that stores users and api keys in
+// the repositories.
 func NewService(users core.UserRepository, apikeys core.ApiKeyRepository) Service {
 	return &service{users, apikeys}
 }
 
+// LoginWithApiKey validates the API Key and if it is valid returns the
+// associated user.
 func (s *service) LoginWithApiKey(apiKeyPlainText string) (*core.User, error) {
 	hash := hashApiKey([]byte(strings.TrimSpace(apiKeyPlainText)))
 	user, err := s.users.GetByApiKey(hash)
@@ -79,7 +84,7 @@ func (s *service) BootstrapRootUser(apiKeyPlainText string) error {
 		// In the event that that the root user exists without an apikey
 		apikeys, err := s.apikeys.GetByUserId(rootUserId)
 		if err != nil {
-			return errors.Wrap(err, "Unable to retrieve root API keys")
+			return errors.Wrap(err, "unable to retrieve root API keys")
 		}
 
 		if len(apikeys) > 0 {
@@ -87,18 +92,18 @@ func (s *service) BootstrapRootUser(apiKeyPlainText string) error {
 		}
 	} else {
 		if err != core.ErrNotFound {
-			return errors.Wrap(err, "Unable to retrieve root user")
+			return errors.Wrap(err, "unable to retrieve root user")
 		}
 		rootUserId = uuid.New()
 		err = s.users.Create(&core.NewUser{Id: rootUserId, Username: RootUsername})
 		if err != nil {
-			return errors.Wrap(err, "Unable to create root user")
+			return errors.Wrap(err, "unable to create root user")
 		}
 	}
 
 	err = s.apikeys.Create(rootUserId, hashApiKey([]byte(apiKeyPlainText)))
 	if err != nil {
-		return errors.Wrap(err, "Error creating root API key")
+		return errors.Wrap(err, "error creating root API key")
 	}
 
 	return nil

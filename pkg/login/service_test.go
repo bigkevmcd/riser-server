@@ -13,7 +13,7 @@ import (
 
 const testValidKey = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
-func Test_LoginWithApiKey(t *testing.T) {
+func TestService_LoginWithApiKey(t *testing.T) {
 	plainText := "aabbccdd"
 	var hash []byte
 	user := &core.User{Username: "test"}
@@ -32,7 +32,7 @@ func Test_LoginWithApiKey(t *testing.T) {
 	assert.Equal(t, hashApiKey([]byte(plainText)), hash)
 }
 
-func Test_LoginWithApiKey_Trims(t *testing.T) {
+func TestService_LoginWithApiKey_trims_api_key(t *testing.T) {
 	plainText := " aabbccdd "
 	var hash []byte
 	user := &core.User{Username: "test"}
@@ -51,7 +51,7 @@ func Test_LoginWithApiKey_Trims(t *testing.T) {
 	assert.Equal(t, hashApiKey([]byte("aabbccdd")), hash)
 }
 
-func Test_LoginWithApiKey_NotFound_ReturnsError(t *testing.T) {
+func TestService_LoginWithApiKey_not_found_returns_error(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByApiKeyFn: func([]byte) (*core.User, error) {
 			return nil, core.ErrNotFound
@@ -62,10 +62,10 @@ func Test_LoginWithApiKey_NotFound_ReturnsError(t *testing.T) {
 	result, err := service.LoginWithApiKey("nope")
 
 	assert.Nil(t, result)
-	assert.Equal(t, ErrInvalidLogin, err)
+	assert.ErrorIs(t, err, ErrInvalidLogin)
 }
 
-func Test_LoginWithApiKey_Error_ReturnsError(t *testing.T) {
+func TestService_LoginWithApiKey_error_returns_error(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByApiKeyFn: func([]byte) (*core.User, error) {
 			return nil, errors.New("test")
@@ -76,10 +76,10 @@ func Test_LoginWithApiKey_Error_ReturnsError(t *testing.T) {
 	result, err := service.LoginWithApiKey("nope")
 
 	assert.Nil(t, result)
-	assert.Equal(t, "test", err.Error())
+	assert.EqualError(t, err, "test")
 }
 
-func Test_BootstrapRootUser(t *testing.T) {
+func TestService_BootstrapRootUser(t *testing.T) {
 	var rootUserId uuid.UUID
 	userRepository := &core.FakeUserRepository{
 		GetByUsernameFn: func(username string) (*core.User, error) {
@@ -110,7 +110,7 @@ func Test_BootstrapRootUser(t *testing.T) {
 	assert.Equal(t, 1, apikeyRepository.CreateCallCount)
 }
 
-func Test_BootstrapRootUser_UnableToCreateApiKey_ReturnsError(t *testing.T) {
+func TestService_BootstrapRootUser_UnableToCreateApiKey_ReturnsError(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByUsernameFn: func(username string) (*core.User, error) {
 			return nil, core.ErrNotFound
@@ -129,10 +129,10 @@ func Test_BootstrapRootUser_UnableToCreateApiKey_ReturnsError(t *testing.T) {
 
 	err := service.BootstrapRootUser(testValidKey)
 
-	assert.Equal(t, "Error creating root API key: test", err.Error())
+	assert.EqualError(t, err, "error creating root API key: test")
 }
 
-func Test_BootstrapRootUser_UserWithKeyExists_ReturnsError(t *testing.T) {
+func TestService_BootstrapRootUser_UserWithKeyExists_ReturnsError(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByUsernameFn: func(string) (*core.User, error) {
 			return &core.User{Id: uuid.New()}, nil
@@ -151,7 +151,7 @@ func Test_BootstrapRootUser_UserWithKeyExists_ReturnsError(t *testing.T) {
 	assert.Equal(t, ErrRootUserExists, err)
 }
 
-func Test_BootstrapRootUser_UnableToCreateUser_ReturnsError(t *testing.T) {
+func TestService_BootstrapRootUser_UnableToCreateUser_ReturnsError(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByUsernameFn: func(string) (*core.User, error) {
 			return nil, core.ErrNotFound
@@ -166,10 +166,10 @@ func Test_BootstrapRootUser_UnableToCreateUser_ReturnsError(t *testing.T) {
 
 	err := service.BootstrapRootUser(testValidKey)
 
-	assert.Equal(t, "Unable to create root user: test", err.Error())
+	assert.EqualError(t, err, "unable to create root user: test")
 }
 
-func Test_BootstrapRootUser_UnableToQueryKeys_ReturnsError(t *testing.T) {
+func TestService_BootstrapRootUser_UnableToQueryKeys_ReturnsError(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByUsernameFn: func(string) (*core.User, error) {
 			return &core.User{Id: uuid.New()}, nil
@@ -185,10 +185,10 @@ func Test_BootstrapRootUser_UnableToQueryKeys_ReturnsError(t *testing.T) {
 
 	err := service.BootstrapRootUser(testValidKey)
 
-	assert.Equal(t, "Unable to retrieve root API keys: test", err.Error())
+	assert.EqualError(t, err, "unable to retrieve root API keys: test")
 }
 
-func Test_BootstrapRootUser_UnableToQueryUser_ReturnsError(t *testing.T) {
+func TestService_BootstrapRootUser_UnableToQueryUser_ReturnsError(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetByUsernameFn: func(string) (*core.User, error) {
 			return nil, errors.New("test")
@@ -199,18 +199,18 @@ func Test_BootstrapRootUser_UnableToQueryUser_ReturnsError(t *testing.T) {
 
 	err := service.BootstrapRootUser(testValidKey)
 
-	assert.Equal(t, "Unable to retrieve root user: test", err.Error())
+	assert.EqualError(t, err, "unable to retrieve root user: test")
 }
 
-func Test_BootstrapRootUser_ShortKey_ReturnsError(t *testing.T) {
+func TestService_BootstrapRootUser_ShortKey_ReturnsError(t *testing.T) {
 	service := service{}
 
 	err := service.BootstrapRootUser("oops")
 
-	assert.Equal(t, "API Key must be a minimum of 32 characters. It is highly recommended to use `riser ops generate-apikey` to generate the key", err.Error())
+	assert.EqualError(t, err, "API Key must be a minimum of 32 characters. It is highly recommended to use `riser ops generate-apikey` to generate the key")
 }
 
-func Test_BootstrapRootUser_EmptyKeyWithUsers_NOOP(t *testing.T) {
+func TestService_BootstrapRootUser_EmptyKeyWithUsers_NOOP(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetActiveCountFn: func() (int, error) {
 			return 1, nil
@@ -223,7 +223,7 @@ func Test_BootstrapRootUser_EmptyKeyWithUsers_NOOP(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func Test_BootstrapRootUser_EmptyKeyNoUsers_NOOP(t *testing.T) {
+func TestService_BootstrapRootUser_EmptyKeyNoUsers_NOOP(t *testing.T) {
 	userRepository := &core.FakeUserRepository{
 		GetActiveCountFn: func() (int, error) {
 			return 0, nil
@@ -233,5 +233,5 @@ func Test_BootstrapRootUser_EmptyKeyNoUsers_NOOP(t *testing.T) {
 
 	err := service.BootstrapRootUser("")
 
-	assert.Equal(t, "You must specify RISER_BOOTSTRAP_APIKEY is required when there are no users. Use \"riser ops generate-apikey\" to generate the key.", err.Error())
+	assert.EqualError(t, err, "You must specify RISER_BOOTSTRAP_APIKEY is required when there are no users. Use \"riser ops generate-apikey\" to generate the key.")
 }
