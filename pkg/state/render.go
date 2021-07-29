@@ -17,6 +17,7 @@ const riserManagedStatePath = "state/riser-managed"
 
 type getResourcePathFunc func(resource KubeResource) string
 
+// RenderDeleteDeployment creates Deployment objects for deletion.
 func RenderDeleteDeployment(deploymentName, namespace string) []core.ResourceFile {
 	return []core.ResourceFile{
 		{
@@ -30,20 +31,23 @@ func RenderDeleteDeployment(deploymentName, namespace string) []core.ResourceFil
 	}
 }
 
-// RenderGeneric is used for generic resources (e.g. riser app namespaces). They will be placed in the root of the namespaced folder.
+// RenderGeneric is used for generic resources (e.g. riser app namespaces).
+//
+// They will be placed in the root of the namespaced folder.
 func RenderGeneric(environmentName string, resources ...KubeResource) ([]core.ResourceFile, error) {
 	return renderKubeResources(func(resource KubeResource) string {
 		return getGenericStatePath(resource)
 	}, resources...)
 }
 
+// RenderSealedSecret generates a SealedSecret object file.
 func RenderSealedSecret(app, environmentName string, sealedSecret *resources.SealedSecret) ([]core.ResourceFile, error) {
 	return renderKubeResources(func(resource KubeResource) string {
 		return getSecretScmPath(app, environmentName, sealedSecret)
 	}, sealedSecret)
 }
 
-// RenderDeployment renders resources that target a deployment's git folder
+// RenderDeployment renders resources that target a deployment's git folder.
 func RenderDeployment(deployment *core.DeploymentConfig, deploymentResources ...KubeResource) ([]core.ResourceFile, error) {
 	files, err := renderKubeResources(func(resource KubeResource) string {
 		return getDeploymentScmPath(deployment.Name, deployment.Namespace, deployment.EnvironmentName, resource)
@@ -78,7 +82,7 @@ func RenderRoute(deploymentName, namespace, environmentName string, resource Kub
 func renderAppConfig(deployment *core.DeploymentConfig) (*core.ResourceFile, error) {
 	serialized, err := util.ToYaml(deployment.App)
 	if err != nil {
-		return nil, errors.Wrap(err, "Error serializing app config")
+		return nil, errors.Wrap(err, "error serializing app config")
 	}
 	return &core.ResourceFile{
 		Name:     getAppConfigScmPath(deployment.Name, deployment.Namespace),
@@ -91,7 +95,7 @@ func renderKubeResources(pathFunc getResourcePathFunc, resources ...KubeResource
 	for _, resource := range resources {
 		serialized, err := util.ToYaml(resource)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("Error serializing resource %q", resource.GetObjectKind()))
+			return nil, errors.Wrapf(err, "error serializing resource %q", resource.GetObjectKind())
 		}
 		files = append(files, core.ResourceFile{
 			Name:     pathFunc(resource),

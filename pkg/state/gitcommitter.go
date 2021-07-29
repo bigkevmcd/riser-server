@@ -8,6 +8,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Committer implementations write the files to a git repository and commit with
+// the provided message.
 type Committer interface {
 	Commit(message string, files []core.ResourceFile) error
 }
