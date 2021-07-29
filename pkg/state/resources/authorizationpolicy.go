@@ -10,6 +10,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// CreateHealthcheckDenyPolicy creates an Istio policy if the DeploymentContext
+// is configured with a health check.
+//
+// The created policy denies access to the paths configured in the health check.
 func CreateHealthcheckDenyPolicy(dCtx *core.DeploymentContext) *v1beta1.AuthorizationPolicy {
 	if dCtx.DeploymentConfig.App.HealthCheck == nil {
 		return nil

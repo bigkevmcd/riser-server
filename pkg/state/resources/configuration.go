@@ -7,6 +7,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// CreateKNativeConfiguration creates the configuration for deploying a
+// DeploymentContext with KNative.
 func CreateKNativeConfiguration(ctx *core.DeploymentContext) *Configuration {
 	podSpec := createPodSpec(ctx)
 	// KNative does not allow setting this

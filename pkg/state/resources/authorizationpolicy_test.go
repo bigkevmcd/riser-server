@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_createHealthcheckDenyPolicy(t *testing.T) {
+func TestCreateHealthcheckDenyPolicy(t *testing.T) {
 	ctx := &core.DeploymentContext{
 		DeploymentConfig: &core.DeploymentConfig{
 			Name:            "myapp-dep",
@@ -34,7 +34,7 @@ func Test_createHealthcheckDenyPolicy(t *testing.T) {
 	assert.Equal(t, "/health", result.Spec.Rules[0].To[0].Operation.Paths[0])
 }
 
-func Test_createHealthcheckDenyPolicy_NoHealthcheckReturnsNil(t *testing.T) {
+func TestCreateHealthcheckDenyPolicy_no_healthcheck_returns_nil(t *testing.T) {
 	ctx := &core.DeploymentContext{
 		DeploymentConfig: &core.DeploymentConfig{
 			Name:            "myapp-dep",

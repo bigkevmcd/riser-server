@@ -12,6 +12,7 @@ func ShouldUpdate() bool {
 	return os.Getenv("UPDATESNAPSHOT") == "true"
 }
 
+// CreateCommitter creates a dry-run committer for testing.
 func CreateCommitter(snapshotPath string) (state.Committer, error) {
 	dryRunCommitter := state.NewDryRunCommitter()
 	var committer state.Committer

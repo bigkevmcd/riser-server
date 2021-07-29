@@ -3,13 +3,12 @@ package resources
 import (
 	"fmt"
 
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 
 	"github.com/riser-platform/riser-server/api/v1/model"
 	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/riser-platform/riser-server/pkg/util"
-
-	corev1 "k8s.io/api/core/v1"
 )
 
 func createPodSpec(ctx *core.DeploymentContext) corev1.PodSpec {

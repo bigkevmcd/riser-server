@@ -9,6 +9,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// CreateKNativeRoute creates and returns
 func CreateKNativeRoute(ctx *core.DeploymentContext) *Route {
 	labels := deploymentLabels(ctx)
 	if ctx.DeploymentConfig.App.Expose != nil && ctx.DeploymentConfig.App.Expose.Scope != model.AppExposeScope_External {
