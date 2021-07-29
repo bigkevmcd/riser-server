@@ -19,5 +19,6 @@ func (r *FakeApiKeyRepository) GetByUserId(userId uuid.UUID) ([]ApiKey, error) {
 
 func (r *FakeApiKeyRepository) Create(userId uuid.UUID, keyHash []byte) error {
 	r.CreateCallCount++
+
 	return r.CreateFn(userId, keyHash)
 }

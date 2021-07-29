@@ -19,7 +19,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/riser-platform/riser-server/api/v1/model v0.0.0-00010101000000-000000000000
 	github.com/sirupsen/logrus v1.6.0
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	gotest.tools v2.2.0+incompatible
 	istio.io/api v0.0.0-20200722144311-7e311b6ce256
 	istio.io/client-go v0.0.0-20200717004237-1af75184beba

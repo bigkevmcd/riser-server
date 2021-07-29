@@ -4,12 +4,14 @@ import (
 	"github.com/google/uuid"
 )
 
+// App represents a named application.
 type App struct {
 	Id        uuid.UUID
 	Name      string
 	Namespace string
 }
 
+// AppStatus represents the state of an application including its deployments.
 type AppStatus struct {
 	AppId             uuid.UUID
 	EnvironmentStatus []EnvironmentStatus

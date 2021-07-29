@@ -61,7 +61,7 @@ func ListEnvironments(c echo.Context, environmentRepository core.EnvironmentRepo
 		return err
 	}
 
-	return c.JSON(http.StatusAccepted, mapEnvironmentMetaArrayFromDomain(environments))
+	return c.JSON(http.StatusOK, mapEnvironmentMetaArrayFromDomain(environments))
 }
 
 func validateEnvironmentName(envName string) error {

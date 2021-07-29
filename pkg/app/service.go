@@ -8,10 +8,14 @@ import (
 )
 
 var (
-	ErrAlreadyExists       = core.NewValidationErrorMessage("an app already exists with the provided name")
-	ErrInvalidAppName      = core.NewValidationErrorMessage("the app name does not match the app ID: you may not change the app's name after creation")
+	// ErrAlreadyExists indicates an app already exists.
+	ErrAlreadyExists = core.NewValidationErrorMessage("an app already exists with the provided name")
+	// ErrInvalidAppName indicates that an app name doesn't match its ID.
+	ErrInvalidAppName = core.NewValidationErrorMessage("the app name does not match the app ID: you may not change the app's name after creation")
+	// ErrInvalidAppNamespace indicates that an app namespace doesn't match its ID.
 	ErrInvalidAppNamespace = core.NewValidationErrorMessage("the app namespace does not match app ID: you may not change the app's namespace after creation")
-	ErrAppNotFound         = core.NewValidationErrorMessage("the app could not be found")
+	// ErrAppNotFoundindicates that a named app doesn't exist.
+	ErrAppNotFound = core.NewValidationErrorMessage("the app could not be found")
 )
 
 type Service interface {

@@ -177,7 +177,7 @@ func validEnvMap(value interface{}) error {
 func validateEnvKeyNoRiserPrefix(v interface{}) error {
 	strVal, _ := v.(string)
 	if envVarKeyRiserPattern.MatchString(strVal) {
-		return errors.New(fmt.Sprintf(`The env var %q is not valid: Must not start with the reserved word "RISER_"`, strVal))
+		return fmt.Errorf(`The env var %q is not valid: Must not start with the reserved word "RISER_"`, strVal)
 	}
 	return nil
 }
