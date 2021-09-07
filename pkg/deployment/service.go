@@ -4,19 +4,15 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/google/uuid"
-	"github.com/riser-platform/riser-server/pkg/deploymentreservation"
-	"github.com/riser-platform/riser-server/pkg/namespace"
-
 	validation "github.com/go-ozzo/ozzo-validation/v3"
-
-	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/riser-platform/riser-server/pkg/state/resources"
-
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/deploymentreservation"
+	"github.com/riser-platform/riser-server/pkg/namespace"
 	"github.com/riser-platform/riser-server/pkg/state"
+	"github.com/riser-platform/riser-server/pkg/state/resources"
 )
 
 type Service interface {

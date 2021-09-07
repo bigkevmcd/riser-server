@@ -3,11 +3,12 @@ package resources
 import (
 	"fmt"
 
-	"github.com/riser-platform/riser-server/pkg/core"
 	securityv1beta1 "istio.io/api/security/v1beta1"
 	typev1beta1 "istio.io/api/type/v1beta1"
 	"istio.io/client-go/pkg/apis/security/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 // CreateHealthcheckDenyPolicy creates an Istio policy if the DeploymentContext

@@ -5,10 +5,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/riser-platform/riser-server/pkg/util"
+	corev1 "k8s.io/api/core/v1"
 
 	"github.com/riser-platform/riser-server/pkg/core"
-	corev1 "k8s.io/api/core/v1"
+	"github.com/riser-platform/riser-server/pkg/util"
 )
 
 func k8sEnvVars(ctx *core.DeploymentContext) []corev1.EnvVar {

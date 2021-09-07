@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	"github.com/riser-platform/riser-server/pkg/git"
 	"github.com/stretchr/testify/assert"
-
 	"github.com/stretchr/testify/require"
+
+	"github.com/riser-platform/riser-server/pkg/git"
 )
 
 func Test_getRepo(t *testing.T) {

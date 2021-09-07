@@ -4,11 +4,11 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/riser-platform/riser-server/pkg/core"
-	"github.com/riser-platform/riser-server/pkg/util"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/util"
 )
 
 const testSealedSecretCert = `-----BEGIN CERTIFICATE-----

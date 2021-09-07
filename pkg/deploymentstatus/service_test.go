@@ -4,13 +4,11 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-
 	"github.com/pkg/errors"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/riser-platform/riser-server/pkg/environment"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func Test_GetByApp(t *testing.T) {

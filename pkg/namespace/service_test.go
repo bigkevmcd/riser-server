@@ -4,9 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 func TestService_Create(t *testing.T) {

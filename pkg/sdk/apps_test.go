@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/riser-platform/riser-server/api/v1/model"
-
 	"github.com/stretchr/testify/assert"
+
+	"github.com/riser-platform/riser-server/api/v1/model"
 )
 
 func Test_Apps_List(t *testing.T) {

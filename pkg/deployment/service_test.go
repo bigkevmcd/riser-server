@@ -1,20 +1,17 @@
 package deployment
 
 import (
+	"testing"
 	"time"
-
-	"github.com/riser-platform/riser-server/pkg/deploymentreservation"
-	"github.com/riser-platform/riser-server/pkg/state"
 
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
-
-	"testing"
-
 	"github.com/stretchr/testify/assert"
 
 	"github.com/riser-platform/riser-server/api/v1/model"
 	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/deploymentreservation"
+	"github.com/riser-platform/riser-server/pkg/state"
 )
 
 // Note: See snapshot_test for state based testing of deployment artifacts

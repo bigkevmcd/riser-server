@@ -5,10 +5,10 @@ import (
 	"net/url"
 
 	"github.com/pkg/errors"
-	"github.com/riser-platform/riser-server/pkg/core"
-
 	// Required for pq lib dynamic driver loading
 	_ "github.com/lib/pq"
+
+	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 // NewDB a database using the provided connection string.

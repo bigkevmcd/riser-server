@@ -3,17 +3,14 @@ package state
 import (
 	"testing"
 
-	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/riser-platform/riser-server/pkg/state/resources"
-
-	"github.com/stretchr/testify/require"
-
-	"github.com/riser-platform/riser-server/api/v1/model"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	appsv1 "k8s.io/api/apps/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/riser-platform/riser-server/api/v1/model"
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/state/resources"
 )
 
 func Test_RenderDeleteDeployment(t *testing.T) {

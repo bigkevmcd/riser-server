@@ -5,18 +5,15 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/util/intstr"
+
+	"github.com/riser-platform/riser-server/api/v1/model"
+	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/riser-platform/riser-server/pkg/snapshot"
 	"github.com/riser-platform/riser-server/pkg/state"
 	"github.com/riser-platform/riser-server/pkg/util"
-	"k8s.io/apimachinery/pkg/util/intstr"
-
-	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/stretchr/testify/require"
-
-	"github.com/stretchr/testify/assert"
-
-	"github.com/riser-platform/riser-server/api/v1/model"
 )
 
 // Uses the "golden files" or "snapshot" test pattern to capture deployments resources.

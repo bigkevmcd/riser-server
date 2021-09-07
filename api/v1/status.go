@@ -4,15 +4,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/riser-platform/riser-server/pkg/app"
-
-	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/riser-platform/riser-server/pkg/deploymentstatus"
+	"github.com/labstack/echo/v4"
 
 	"github.com/riser-platform/riser-server/api/v1/model"
-
-	"github.com/labstack/echo/v4"
+	"github.com/riser-platform/riser-server/pkg/app"
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/deploymentstatus"
 )
 
 func GetAppStatus(c echo.Context, appService app.Service, statusService deploymentstatus.Service) error {
@@ -93,6 +90,7 @@ func mapDeploymentToStatusModel(domain *core.Deployment) *model.DeploymentStatus
 			}
 		}
 	}
+
 	return status
 }
 

@@ -5,16 +5,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/imdario/mergo"
-
 	"github.com/dustin/go-humanize"
+	"github.com/imdario/mergo"
 	"github.com/pkg/errors"
+
 	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 // UnhealthyAfter indicates the duration that is used to calculate if the environment is unhealthy due to not receiving any type of communication from the environment
 var UnhealthyAfter = time.Duration(30) * time.Second
 
+// RepoSettings is the Git repository and path within the Git repository.
 type RepoSettings struct {
 	URL        string
 	BaseGitDir string

@@ -3,10 +3,11 @@ package resources
 import (
 	"testing"
 
-	"github.com/riser-platform/riser-server/api/v1/model"
-	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/util/intstr"
+
+	"github.com/riser-platform/riser-server/api/v1/model"
+	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 func Test_k8sEnvVars(t *testing.T) {

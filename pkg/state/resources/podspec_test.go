@@ -3,13 +3,11 @@ package resources
 import (
 	"testing"
 
-	"github.com/riser-platform/riser-server/pkg/util"
+	"github.com/stretchr/testify/assert"
+	corev1 "k8s.io/api/core/v1"
 
 	"github.com/riser-platform/riser-server/api/v1/model"
-
-	"github.com/stretchr/testify/assert"
-
-	corev1 "k8s.io/api/core/v1"
+	"github.com/riser-platform/riser-server/pkg/util"
 )
 
 // Basic podspec tests are covered in knativeservice_test.go.

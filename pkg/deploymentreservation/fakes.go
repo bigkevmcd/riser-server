@@ -2,6 +2,7 @@ package deploymentreservation
 
 import (
 	"github.com/google/uuid"
+
 	"github.com/riser-platform/riser-server/pkg/core"
 )
 

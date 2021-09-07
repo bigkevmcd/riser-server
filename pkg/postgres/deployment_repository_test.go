@@ -4,8 +4,9 @@ import (
 	"testing"
 
 	"github.com/pkg/errors"
-	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 func Test_DeploymentRepository_handleUpdateStatusResult(t *testing.T) {

@@ -5,16 +5,13 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/riser-platform/riser-server/pkg/core"
-	"github.com/riser-platform/riser-server/pkg/util"
-
+	sealedCrypto "github.com/bitnami-labs/sealed-secrets/pkg/crypto"
 	"github.com/pkg/errors"
-
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
 	"k8s.io/client-go/util/cert"
 
-	sealedCrypto "github.com/bitnami-labs/sealed-secrets/pkg/crypto"
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/util"
 )
 
 // SealedSecret represents an encrypted Secret

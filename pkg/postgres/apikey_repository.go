@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/google/uuid"
+
 	"github.com/riser-platform/riser-server/pkg/core"
 )
 

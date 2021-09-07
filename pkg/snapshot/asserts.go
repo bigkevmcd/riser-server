@@ -7,10 +7,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/riser-platform/riser-server/pkg/core"
-	"github.com/riser-platform/riser-server/pkg/state"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/state"
 )
 
 // AssertEqual asserts that a snapshot (aka "gold files") are equal to the generated resource files

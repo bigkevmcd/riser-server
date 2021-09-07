@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/riser-platform/riser-server/pkg/core"
-	"github.com/stretchr/testify/assert"
 )
 
 // See snapshot test for happy path

@@ -3,8 +3,9 @@ package resources
 import (
 	"fmt"
 
-	"github.com/riser-platform/riser-server/pkg/core"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/riser-platform/riser-server/pkg/core"
 )
 
 // CreateKNativeConfiguration creates the configuration for deploying a

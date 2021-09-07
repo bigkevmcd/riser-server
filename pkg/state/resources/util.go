@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/riser-platform/riser-server/pkg/util"
-
 	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/util"
 )
 
 // deploymentLabels are labels common to Riser deployment resources

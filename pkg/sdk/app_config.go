@@ -5,7 +5,6 @@ import (
 	"text/template"
 
 	"github.com/google/uuid"
-
 	"github.com/pkg/errors"
 )
 

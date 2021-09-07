@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/riser-platform/riser-server/pkg/state/resources"
-
 	"github.com/pkg/errors"
+
 	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/riser-platform/riser-server/pkg/state"
+	"github.com/riser-platform/riser-server/pkg/state/resources"
 )
 
 type Service interface {

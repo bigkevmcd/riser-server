@@ -6,10 +6,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/riser-platform/riser-server/pkg/state/resources"
-
 	"github.com/pkg/errors"
+
 	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/state/resources"
 	"github.com/riser-platform/riser-server/pkg/util"
 )
 

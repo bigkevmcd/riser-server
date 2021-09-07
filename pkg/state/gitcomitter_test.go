@@ -5,9 +5,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/riser-platform/riser-server/pkg/core"
 	"github.com/riser-platform/riser-server/pkg/git"
-	"github.com/stretchr/testify/assert"
 )
 
 func Test_Commit(t *testing.T) {

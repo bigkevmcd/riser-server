@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/riser-platform/riser-server/api/v1/model"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/riser-platform/riser-server/api/v1/model"
 )
 
 func Test_Deployments_Delete(t *testing.T) {

@@ -9,8 +9,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/riser-platform/riser-server/api/v1/model"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/riser-platform/riser-server/api/v1/model"
 )
 
 const testApiKey = "ad4a79e70859f3166d7232c67e6bb6b853fc4ff4"

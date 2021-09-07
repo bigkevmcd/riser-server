@@ -5,10 +5,9 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/stretchr/testify/assert"
 )
 
 const testValidKey = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

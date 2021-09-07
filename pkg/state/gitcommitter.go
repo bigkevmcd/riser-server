@@ -1,11 +1,10 @@
 package state
 
 import (
-	"github.com/riser-platform/riser-server/pkg/core"
-
-	"github.com/riser-platform/riser-server/pkg/git"
-
 	"github.com/pkg/errors"
+
+	"github.com/riser-platform/riser-server/pkg/core"
+	"github.com/riser-platform/riser-server/pkg/git"
 )
 
 // Committer implementations write the files to a git repository and commit with
